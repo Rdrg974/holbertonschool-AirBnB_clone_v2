@@ -21,8 +21,9 @@ def display(text):
     return "C " + text
 
 
-@flk.route("/python/<text>", strict_slashes=False)
-def display_py(text="is cool"):
+@flk.route('/python', defaults={'text': "is_cool"}, strict_slashes=False)
+@flk.route('/python/<text>', strict_slashes=False)
+def display_py():
     text = text.replace('_', ' ')
     return "Python " + text
 

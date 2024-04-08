@@ -21,16 +21,16 @@ def display(text):
     return "C " + text
 
 
-@flk.route("/python/<text>", strict_slashes=False)
-def display_py(text="is cool"):
+@flk.route('/python', defaults={'text': "is_cool"}, strict_slashes=False)
+@flk.route('/python/<text>', strict_slashes=False)
+def display_py(text):
     text = text.replace('_', ' ')
     return "Python " + text
 
 
-@flk.route("/number/<n>", strict_slashes=False)
+@flk.route("/number/<int:n>", strict_slashes=False)
 def display_nbr(n):
-    if type(n) is int:
-        return n
+    return '' + n
 
 
 if __name__ == "__main__":
