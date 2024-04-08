@@ -30,7 +30,7 @@ def display_py(text):
 
 @flk.route("/number/<int:n>", strict_slashes=False)
 def display_nbr(n):
-    return '' + n
+    return f"{n} is a number"
 
 
 if __name__ == "__main__":
