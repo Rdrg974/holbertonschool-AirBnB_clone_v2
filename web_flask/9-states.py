@@ -3,16 +3,16 @@
 from models import storage
 from flask import render_template, Flask
 
-app = Flask(__name__)
+flk = Flask(__name__)
 
 
-@app.route("/states", strict_slashes=False)
+@flk.route("/states", strict_slashes=False)
 def states():
     states = storage.all("State")
     return render_template("9-states.html", state=states)
 
 
-@app.route("/states/<id>", strict_slashes=False)
+@flk.route("/states/<id>", strict_slashes=False)
 def states_id(id):
     for state in storage.all("State").values():
         if state.id == id:
@@ -20,7 +20,7 @@ def states_id(id):
     return render_template("9-states.html")
 
 
-@app.teardown_appcontext
+@flk.teardown_appcontext
 def teardown(exc):
     storage.close()
 
