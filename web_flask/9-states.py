@@ -1,23 +1,25 @@
 #!/usr/bin/python3
 """Starts a Flask web application."""
 from models import storage
+from models.city import City
+from models.state import State
 from flask import render_template, Flask
 
 flk = Flask(__name__)
 
 
-@flk.route("/states", strict_slashes=False)
-def states():
-    states = storage.all("State")
-    return render_template("9-states.html", state=states)
-
-
+@flk.route("/states", defaults={'id': None}, strict_slashes=False)
 @flk.route("/states/<id>", strict_slashes=False)
 def states_id(id):
-    for state in storage.all("State").values():
-        if state.id == id:
-            return render_template("9-states.html", state=state)
-    return render_template("9-states.html")
+    states = storage.all(State).values()
+    for value in states:
+        if value.id == id:
+            states = value
+            return render_template('9-states.html', states=states, id=id)
+    if id is None:
+        return render_template("9-states.html", states=states, id=id)
+    else:
+        return render_template("9-states.html")
 
 
 @flk.teardown_appcontext
